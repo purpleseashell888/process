@@ -1,14 +1,12 @@
 import type { Step } from "../../data/steps";
 
-export default function StepCard({
-  step,
-  progress,
-  statusText,
-}: {
+interface Props {
   step: Step;
   progress: number;
   statusText: string;
-}) {
+}
+
+export default function StepCard({ step, progress, statusText }: Props) {
   return (
     <div className="w-full px-4">
       <div className="h-[150px] rounded-3xl border border-gray-200 p-6 shadow-sm">

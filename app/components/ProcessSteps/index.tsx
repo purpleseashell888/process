@@ -1,14 +1,35 @@
 import { useRef, useState, useEffect } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { getStatusText } from "../../utils/getStatusText";
 import steps from "../../data/steps";
 import StepCard from "../StepCard";
 
 export function ProcessSteps() {
-  const [currentStep, setCurrentStep] = useState<number>(0);
+  const navigate = useNavigate();
+  const params = useParams();
+  const rawId = params.id;
+  const urlStep = (() => {
+    const n = Number(rawId);
+    if (Number.isNaN(n) || n < 1) return 0; // 默认第 0 个
+    if (n > steps.length) return steps.length - 1;
+    return n - 1; // 步骤从 1 开始，索引从 0 开始
+  })();
+  const [currentStep, setCurrentStep] = useState<number>(urlStep);
   const [progressMap, setProgressMap] = useState<Record<number, number>>({});
   const animationRef = useRef<number | null>(null);
-  const navigate = useNavigate();
+
+  useEffect(() => {
+    const restored: Record<number, number> = {};
+
+    for (let i = 0; i < urlStep; i++) {
+      restored[i] = 100;
+    }
+
+    restored[urlStep] = 0;
+
+    setProgressMap(restored);
+    setCurrentStep(urlStep);
+  }, []);
 
   useEffect(() => {
     startStep(currentStep);
