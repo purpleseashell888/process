@@ -1,0 +1,33 @@
+# Node
+node_modules
+dist
+build
+.temp
+
+# Env / OS
+.DS_Store
+.local
+.cache
+
+# IDE
+.vscode
+.idea
+
+# Static assets
+public
+*.md
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg
+*.woff
+*.woff2
+*.ttf
+
+# Tools
+.husky
+bin
+
+# Project specific
+src/mock/*
